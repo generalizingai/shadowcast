@@ -8,7 +8,7 @@ argument-hint: <youtube channel url or @handle>
 
 `T="${CLAUDE_PLUGIN_ROOT}/tools"`, `H="${FORGE_HOME:-$HOME/ChannelForge}"`.
 
-We copy what makes a channel work: format, pacing, visual grammar, packaging and cadence. Everything the viewer sees is ours: name, look, scripts, voice, thumbnails. Say this once to the user. Never download or reuse the reference channel's videos, thumbnails or scripts in our output.
+We copy what makes a channel work: format, pacing, visual grammar, look (palette, font feel, thumbnail style), packaging and cadence. The **identity** is the user's: their brand files or website if they gave them, otherwise an original name, logo, avatar and banner styled like the reference. Never copy the reference channel's name, logo, avatar or banner (YouTube terminates impersonating channels), and never reuse its videos, thumbnails or scripts. Say this once to the user.
 
 Keep the user informed with one short line per milestone. Ask the user only where marked **[user]**; everything else is automatic.
 
@@ -19,12 +19,15 @@ Run `python3 "$T/doctor.py"`. If any required item is missing, run the setup ski
 Follow the channel-audit skill steps 1-4 with `A="$H/_audits/<handle>"`.
 
 ## 2. Identity
-1. Follow brand-kit step 1 (name + handle). **[user]** If the user is present, let them pick from 4 names.
+0. **[user]** Ask once: "Do you have your own branding (a folder of logo and colour files) or a website I should take it from? If not, I'll match the reference channel's look with an original name and logo." The answer sets `brand.source`: own / website / match.
+1. Name + handle:
+   - own/website: take them from the user or site.
+   - match: follow brand-kit step 1. **[user]** If the user is present, let them pick from 4 names.
 2. Create the workspace: `python3 "$T/new_channel.py" <slug> --name "<Name>" --code <XX> --source "<url>"`.
    - The slug is the name lowercased with dashes. The first run installs Remotion once (~300 MB).
 3. Move the audit in: `mv "$H/_audits/<handle>" "$H/<slug>/audit"`.
 4. Finish channel-audit steps 5-6 (STYLE.md and channel.json).
-5. Finish brand-kit steps 2-5 (look, images, voice, description).
+5. Finish brand-kit steps 0 and 2-5 (brand source, look, images, voice, description).
 6. **[user]** Ask only if unknown:
    - Release days and times. Default: Mon/Wed/Fri; long video 6 PM, Short 1 6:30 PM, Short 2 11 AM next day, in the user's time zone.
    - Approval mode. Default `optional` with a 12 h window. Real-people channels always wait.

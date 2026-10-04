@@ -1,16 +1,40 @@
 ---
 name: brand-kit
-description: Create an original identity for a new channel. Covers the name, handle, colours, fonts, wordmark, monogram, avatar, banner and voice, and writes them into the channel workspace. Use after a channel audit, or when a channel needs a rebrand.
-argument-hint: <channel slug>
+description: Set a channel's identity (name, handle, colours, fonts, wordmark, monogram, avatar, banner, voice) from the user's own brand files, their website, or (default) by matching the reference channel's look with an original name and logo. Use after a channel audit, or for a rebrand.
+argument-hint: <channel slug> [brand folder | website url]
 ---
 
 # Brand kit
 
 `T="${CLAUDE_PLUGIN_ROOT}/tools"`. Workspace `W=${FORGE_HOME:-~/ChannelForge}/<slug>`. Read `W/STYLE.md` and `W/channel.json` first.
 
-The identity must be **ours**. It must not be confusable with the reference channel or any brand: no similar name, logo shape or signature colour combination. It should still fit the niche's mood, as the audit describes it.
+## 0. Brand source (`channel.json brand.source`)
+Pick exactly one. The user's choice wins, so ask if it's unknown and they're present.
 
-## 1. Name + handle
+| source | when | what we take |
+|---|---|---|
+| `own` | the user gave a folder of brand files | their exact files and colours; fonts by name |
+| `website` | the user gave their site URL | the site's name, tagline, logo, colours and fonts |
+| `match` (default) | nothing given | the reference channel's **look** (palette, font feel, thumbnail and layout grammar) with an **original** name, logo, avatar and banner |
+
+- **own:** run `python3 "$T/brand_extract.py" folder "<folder>" "$W/brand/source"`.
+  - Use their logo files as-is; never redraw or "improve" them. Copy the best light-on-dark version to `brand/wordmark.png`, and a square mark to `brand/mono.png` and `brand/avatar.png`. Only fill in what's missing (e.g. generate a banner in their colours, with their logo placed in the safe area).
+  - Colours come from `suggested_roles`, then adjust: keep their exact brand hex as the `gold` accent. Text files in the folder may name their fonts.
+  - Name and handle come from the user. Skip step 1 unless they're missing.
+- **website:** run `python3 "$T/brand_extract.py" site "<url>" "$W/brand/source"`.
+  - Look at every downloaded `site_logo_*` file. Pick the real logo; og-images are often photos, so ignore those.
+  - Name and tagline come from the site. Colours come from `suggested_roles`; the site's primary brand colour becomes `gold`.
+  - Fonts: use the site's fonts if they're Google Fonts. Otherwise use the closest Google Font (e.g. a custom grotesk becomes Inter or Manrope).
+  - Then continue as `own`, using the extracted logo.
+- **match:** run `python3 "$T/brand_extract.py" palette "$W/audit/thumbs.jpg" "$W"/audit/frames_*.jpg`.
+  - Copy the palette roles, and choose the Google Fonts closest to their type feel (serif vs grotesk vs condensed). The videos and thumbnails should feel like the reference channel.
+  - Never reuse their name, wordmark, logo, avatar, banner art, catchphrase sign-offs or mascot. Never create a confusingly similar name or logo either: no sound-alikes, no same initials in the same badge shape.
+  - Why this rule matters: YouTube terminates channels for impersonation (copied name/avatar/banner), and channel names and logos are often trademarked. The look itself (colours, fonts, layout style) is fine to match.
+  - If the user insists on copying another channel's name or logo, explain the risk and decline. The exception is a channel they own or have written permission for; then treat it as `own`.
+
+Record `brand.source` (and `brand.source_ref`: the folder, URL or reference channel) in channel.json.
+
+## 1. Name + handle (match mode, or when own/website gave none)
 - Brainstorm 12 names: short (1-2 words), easy to say, ownable, fitting the niche.
 - Shortlist 4. For each, check:
   - the handle: `curl -s -o /dev/null -w "%{http_code}" https://www.youtube.com/@<handle>` (404 means likely free);
@@ -21,7 +45,7 @@ The identity must be **ours**. It must not be confusable with the reference chan
   - `new_channel.py` sets `code` at creation; keep it unless it's empty.
 
 ## 2. Look
-- Choose `brand.colors` (all 11 roles, `#RRGGBB`):
+- Start from step 0's `suggested_roles`. Choose `brand.colors` (all 11 roles, `#RRGGBB`):
   - background ramp: deep, navy, navy2 (any dark hue);
   - accent ramp: gold, gold2, goldDeep (the accent can be any hue: teal, crimson, lime...);
   - text: ivory, dim; plus paper, red, green.
@@ -31,7 +55,7 @@ The identity must be **ours**. It must not be confusable with the reference chan
 - Run `python3 "$T/new_channel.py" brand <slug>`. It validates the fonts and colours, and writes the studio's brand.ts.
 
 ## 3. Images (`W/brand/`)
-Use `python3 "$T/imagegen.py" "<prompt>" <out> --aspect <a>`. Generate, then **look at every result** with Read and regenerate until it is clean.
+In own/website mode, use the user's logo files and generate only what's missing. In match mode, generate everything. Use `python3 "$T/imagegen.py" "<prompt>" <out> --aspect <a>`. Generate, then **look at every result** with Read and regenerate until it is clean.
 - `wordmark.png`: the channel name in light lettering on a transparent or very dark background, wide (about 8:1).
   - Image models are unreliable at text. If the lettering isn't letter-perfect, build the wordmark from the brand font in Remotion or with PIL instead.
   - Never ship a misspelt wordmark.

@@ -5,18 +5,71 @@
  "handle": "",
  "tagline": "",
  "created": "",
- "source": {"url": "", "audited": "", "notes": "what we keep from the reference channel: format only, never its name, branding, scripts or thumbnails"},
+ "source": {
+  "url": "",
+  "audited": "",
+  "notes": "what we keep from the reference channel: format only, never its name, branding, scripts or thumbnails"
+ },
  "niche": "",
  "real_people": true,
- "format": {"type": "countdown", "rail": "countdown", "minutes": 10, "items": 10, "wpm": 165},
- "voice": {"id": "", "name": "", "model": "eleven_v4", "tempo": 1.1, "respell": []},
- "youtube": {"channel_title": "", "category_id": 24, "language": "en", "description_footer": "", "keywords": []},
+ "format": {
+  "type": "countdown",
+  "rail": "countdown",
+  "minutes": 10,
+  "items": 10,
+  "wpm": 165
+ },
+ "voice": {
+  "id": "",
+  "name": "",
+  "model": "eleven_v4",
+  "tempo": 1.1,
+  "respell": []
+ },
+ "youtube": {
+  "channel_title": "",
+  "category_id": 24,
+  "language": "en",
+  "description_footer": "",
+  "keywords": []
+ },
  "hashtags": [],
- "schedule": {"tz": "America/New_York", "days": ["Mon", "Wed", "Fri"], "lead_hours": 3,
-              "slots": {"long": [0, "18:00"], "short1": [0, "18:30"], "short2": [1, "11:00"]}},
- "approval": {"mode": "optional", "window_hours": 12},
+ "schedule": {
+  "tz": "America/New_York",
+  "days": [
+   "Mon",
+   "Wed",
+   "Fri"
+  ],
+  "lead_hours": 3,
+  "slots": {
+   "long": [
+    0,
+    "18:00"
+   ],
+   "short1": [
+    0,
+    "18:30"
+   ],
+   "short2": [
+    1,
+    "11:00"
+   ]
+  }
+ },
+ "approval": {
+  "mode": "optional",
+  "window_hours": 12
+ },
  "episodes_ahead": 2,
- "social": {"socialbunny": null},
- "images": {"provider": "gemini"},
- "brand": {}
+ "social": {
+  "socialbunny": null
+ },
+ "images": {
+  "provider": "gemini"
+ },
+ "brand": {
+  "source": "match",
+  "source_ref": ""
+ }
 }

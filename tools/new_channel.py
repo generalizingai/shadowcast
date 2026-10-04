@@ -97,7 +97,7 @@ def create(a):
     c = json.load(open(os.path.join(PLUGIN, "templates", "channel.json")))
     c.update({"slug": a.slug, "name": a.name, "code": a.code, "created": dt.date.today().isoformat()})
     c["source"]["url"] = a.source or ""
-    c["brand"] = {"colors": dict(COLOR_DEFAULT), "fonts": dict(FONT_DEFAULT)}
+    c["brand"] = {**c.get("brand", {}), "colors": dict(COLOR_DEFAULT), "fonts": dict(FONT_DEFAULT)}
     json.dump(c, open(os.path.join(root, "channel.json"), "w"), indent=1, ensure_ascii=False)
     open(os.path.join(st, "src/brand/brand.ts"), "w").write(brand_ts(c, st))
     print(root)

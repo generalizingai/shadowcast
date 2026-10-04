@@ -5,7 +5,10 @@
 Channel Forge is a Claude Code plugin, powered by Claude Opus 5.5. The flow:
 1. **Audit:** it audits a channel you admire: cadence, length, titles, thumbnails, top videos. Gemini watches the best ones.
 2. **Style bible:** it writes a style bible of *why* the channel works.
-3. **Identity:** it builds you an **original** identity: name, colours, fonts, logo, avatar, banner and voice.
+3. **Branding:** it sets your channel's branding in one of three ways:
+   - **Your own branding:** point it at a folder of your logo and brand files, and it uses them exactly.
+   - **Your website:** give it your URL and it pulls your name, tagline, logo, colours and fonts.
+   - **Default:** it matches the reference channel's look (palette, font feel, thumbnail and graphics style) with an original name, logo, avatar and banner.
 4. **Episodes:** it produces full episodes:
    - research and a fact sheet, and a script that waits for your approval
    - ElevenLabs voice-over
@@ -15,7 +18,7 @@ Channel Forge is a Claude Code plugin, powered by Claude Opus 5.5. The flow:
    - a full upload package: chapters, sources, photo credits
 5. **Schedule:** it schedules everything on YouTube, and optionally Facebook and Instagram, on your release calendar. After that it keeps going by itself.
 
-> It copies a channel's **format**, never its content. Your name, look, scripts, voice and thumbnails are original. It never downloads or reuses the reference channel's videos, thumbnails or scripts in what it publishes.
+> It copies a channel's **format and look**, never its identity or content. The name, logo, avatar and banner are always yours or newly made. YouTube terminates channels that copy another channel's name, avatar or banner, and channel names and logos are often trademarked. Scripts, voice and thumbnails are original too, and it never reuses the reference channel's videos, thumbnails or scripts.
 
 ## What you need
 - A Mac (Apple Silicon or Intel) with about **10 GB free disk**.
@@ -59,7 +62,7 @@ Setup checks everything (node, ffmpeg, yt-dlp, python packages, the Apple Vision
 ```
 /channel-forge:clone-channel https://www.youtube.com/@SomeChannel
 ```
-That's the whole flow. It asks only what it must: the name pick (from 4 checked options), your release days, and approval of the first script. Then it turns on autopilot.
+That's the whole flow. It asks only what it must: your branding (folder, website, or none), the name pick if it's creating one (from 4 checked options), your release days, and approval of the first script. Then it turns on autopilot.
 
 | Command | What it does |
 |---|---|
@@ -69,7 +72,7 @@ That's the whole flow. It asks only what it must: the name pick (from 4 checked 
 | `/channel-forge:publish <slug> <ID>` | Schedule a packaged episode; also `auth` / `brand` |
 | `/channel-forge:autopilot install <slug>` | Hands-free mode (`remove`, `status`) |
 | `/channel-forge:channel-audit <url>` | Just the audit and style bible |
-| `/channel-forge:brand-kit <slug>` | Re-run or refresh the identity |
+| `/channel-forge:brand-kit <slug> [folder or url]` | Set or refresh the branding from your files, your website, or the reference look |
 
 ## How autopilot works
 - **Ticks:** a macOS launchd job runs a headless Claude Code tick every 3 hours (`claude -p "/channel-forge:autopilot <slug>" --model claude-opus-5-5`) with a fixed tool allowlist. Each tick does the most useful next step: research, script, voice, build, audit, render, package or schedule. It keeps 2 episodes booked ahead.
