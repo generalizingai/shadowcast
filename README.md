@@ -1,3 +1,7 @@
+<p align="center"><img src="assets/shadowcast-banner.jpg" alt="Shadowcast" width="720"></p>
+
+<p align="center"><img src="assets/shadowcast-icon-256.png" alt="" width="96"></p>
+
 # Shadowcast
 
 **Paste a YouTube channel link. Get your own original channel in that format, running on autopilot.**
