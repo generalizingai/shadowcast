@@ -1,8 +1,10 @@
-<p align="center"><img src="assets/shadowcast-banner.jpg" alt="Shadowcast" width="720"></p>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/shadowcast-logo-dark.png">
+    <img src="assets/shadowcast-logo-light.png" alt="Shadowcast" width="340">
+  </picture>
+</p>
 
-<p align="center"><img src="assets/shadowcast-icon-256.png" alt="" width="96"></p>
-
-# Shadowcast
 
 **Paste a YouTube channel link. Get your own original channel in that format, running on autopilot.**
 
