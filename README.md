@@ -44,8 +44,8 @@ Setup checks everything (node, ffmpeg, yt-dlp, python packages, the Apple Vision
 ### One-time steps only you can do
 1. **API keys:** run these in your own terminal. Input is hidden; keys are stored in `~/.config/shadowcast/keys.json` with permissions 600 and never pass through the chat.
    ```bash
-   python3 ~/.claude/plugins/cache/shadowcast/*/tools/keys.py set elevenlabs_api_key
-   python3 ~/.claude/plugins/cache/shadowcast/*/tools/keys.py set gemini_api_key
+   python3 ~/.claude/plugins/cache/shadowcast/shadowcast/*/tools/keys.py set elevenlabs_api_key
+   python3 ~/.claude/plugins/cache/shadowcast/shadowcast/*/tools/keys.py set gemini_api_key
    ```
    (`/shadowcast:setup` prints the exact path for your install.)
 2. **YouTube OAuth client** (5 minutes, once):
