@@ -45,6 +45,7 @@ Then, in Claude Code:
 ```
 /shadowcast:setup
 ```
+To try it before setting up a real channel, run `/shadowcast:demo https://www.youtube.com/@AnyChannel`. It needs only the ElevenLabs and Gemini keys.
 Setup checks everything (node, ffmpeg, yt-dlp, python packages, the Apple Vision cut-out tool, disk). It fixes what it can and tells you the rest.
 
 ### One-time steps only you can do
@@ -72,6 +73,7 @@ That's the whole flow. It asks only what it must: your branding (folder, website
 
 | Command | What it does |
 |---|---|
+| `/shadowcast:demo <url> [topic]` | **Try it first:** one 1-minute video, 1 Short and 1 thumbnail in that channel's format. Nothing is published and no YouTube setup is needed. |
 | `/shadowcast:clone-channel <url>` | Everything, start to finish |
 | `/shadowcast:episode <slug> [topic]` | Make the next episode (or resume one) |
 | `/shadowcast:approve <slug> <ID>` | Approve a waiting script, or reject it with notes |

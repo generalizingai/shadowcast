@@ -57,7 +57,7 @@ Record `brand.source` (and `brand.source_ref`: the folder, URL or reference chan
 ## 3. Images (`W/brand/`)
 In own/website mode, use the user's logo files and generate only what's missing. In match mode, generate everything. Use `python3 "$T/imagegen.py" "<prompt>" <out> --aspect <a>`. Generate, then **look at every result** with Read and regenerate until it is clean.
 - `wordmark.png`: the channel name in light lettering on a transparent or very dark background, wide (about 8:1).
-  - Image models are unreliable at text. If the lettering isn't letter-perfect, build the wordmark from the brand font in Remotion or with PIL instead.
+  - Image models are unreliable at text. If the lettering isn't letter-perfect, run `python3 "$T/wordmark.py" <slug>` instead. It renders `wordmark.png`, `mono.png` and `avatar.png` from the brand font and colours, so the spelling is always exact.
   - Never ship a misspelt wordmark.
 - `mono.png`: square monogram (1:1, 512 px), readable at 54 px.
 - `avatar.png`: 800x800 profile picture, a bold mark that survives a circle crop.
