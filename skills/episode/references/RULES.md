@@ -45,14 +45,14 @@ Fix every issue, re-run the audit, and look again. Do not render until a full sh
 ## Assets
 - Photos come from `commons.py search` / `fetch` (Wikimedia via the en.wikipedia API). Keys and naming:
   - `b_<name>.jpg` for backgrounds.
-  - `p_<name>.jpg` for people. Then cut out with `~/.config/shadowcast/bin/cutout web/p_<name>.jpg cut/<name>.png`.
+  - `p_<name>.jpg` for people. Then cut out with `cutout.py web/p_<name>.jpg cut/<name>.png`.
 - Every fetch appends to `assets/web/CREDITS.md`. Credits are computed from what the shots actually reference, so reference assets by literal path strings (`"web/b_x.jpg"`, `"cut/x.png"`).
 - Commons rate-limits with 429s. Start building shots with stand-ins (`Glam`, silhouettes) while photos download; never sit idle.
 - Look at every cut-out before using it. Reject bad masks, other people's limbs, logos, and watermarks.
 - AI images (`imagegen.py`) are only for non-person scenery, textures, objects and backgrounds, and only where the style allows. They need no credit line.
 
 ## Render
-- Renders need about 3 GB of free temp space. Check `df -h ~` first.
-- Long: `render_episode.sh <slug> <ID> long`. Shorts render with concurrency 2, because they eat memory.
+- Renders need about 3 GB of free temp space. Check free disk space first.
+- Long: `render.py episode <slug> <ID> long`. Shorts render with concurrency 2, because they eat memory.
 - After rendering, check `ffprobe` duration, and view 6 frames spread across the long video plus 3 per Short.
 - Audio is normalised to -14 LUFS.

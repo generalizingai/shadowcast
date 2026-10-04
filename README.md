@@ -27,14 +27,14 @@ Shadowcast is a Claude Code plugin, powered by Claude Opus 5.5. The flow:
 > It copies a channel's **format and look**, never its identity or content. The name, logo, avatar and banner are always yours or newly made. YouTube terminates channels that copy another channel's name, avatar or banner, and channel names and logos are often trademarked. Scripts, voice and thumbnails are original too, and it never reuses the reference channel's videos, thumbnails or scripts.
 
 ## What you need
-- A Mac (Apple Silicon or Intel) with about **10 GB free disk**.
+- A computer running **macOS** (Apple Silicon or Intel) or **Windows 10/11**, with about **10 GB free disk**. Windows support is new, so please report anything that breaks.
 - **Claude Code** with a Claude subscription (Max recommended: a full episode is a long Opus session).
 - **ElevenLabs** account and API key. A 10-minute episode uses ~12-15k characters, so 3 episodes a week needs the Pro tier.
 - **Gemini** API key (aistudio.google.com) for video analysis and image generation. Pennies per episode.
 - A **Google Cloud** project with the YouTube Data API (free).
 - Optional:
   - OpenAI key, as an alternative image model.
-  - A SocialBunny key, for Facebook/Instagram cross-posting.
+  - A [SocialBunny](https://socialbunny.co) key, for Facebook/Instagram cross-posting.
 
 ## Install
 ```bash
@@ -45,16 +45,24 @@ Then, in Claude Code:
 ```
 /shadowcast:setup
 ```
+Setup checks everything: node, ffmpeg, yt-dlp, Python packages, the photo cut-out tool and disk space. It fixes what it can and tells you the exact command for anything else, for your operating system.
+
 To try it before setting up a real channel, run `/shadowcast:demo https://www.youtube.com/@AnyChannel`. It needs only the ElevenLabs and Gemini keys.
-Setup checks everything (node, ffmpeg, yt-dlp, python packages, the Apple Vision cut-out tool, disk). It fixes what it can and tells you the rest.
 
 ### One-time steps only you can do
-1. **API keys:** run these in your own terminal. Input is hidden; keys are stored in `~/.config/shadowcast/keys.json` with permissions 600 and never pass through the chat.
+1. **API keys:** run these in your own terminal. Input is hidden, keys are stored only on your computer (`~/.config/shadowcast/keys.json`, private to your user), and they never pass through the chat.
+
+   macOS:
    ```bash
    python3 ~/.claude/plugins/cache/shadowcast/shadowcast/*/tools/keys.py set elevenlabs_api_key
    python3 ~/.claude/plugins/cache/shadowcast/shadowcast/*/tools/keys.py set gemini_api_key
    ```
-   (`/shadowcast:setup` prints the exact path for your install.)
+   Windows (PowerShell):
+   ```powershell
+   python (Resolve-Path "$HOME\.claude\plugins\cache\shadowcast\shadowcast\*\tools\keys.py") set elevenlabs_api_key
+   python (Resolve-Path "$HOME\.claude\plugins\cache\shadowcast\shadowcast\*\tools\keys.py") set gemini_api_key
+   ```
+   `/shadowcast:setup` also prints the exact command for your install.
 2. **YouTube OAuth client** (5 minutes, once):
    1. console.cloud.google.com: create a project, then enable **YouTube Data API v3**.
    2. OAuth consent screen: set it to External, fill in the app name, and click **Publish app**. Testing mode blocks sign-in and expires tokens weekly.
@@ -83,13 +91,15 @@ That's the whole flow. It asks only what it must: your branding (folder, website
 | `/shadowcast:brand-kit <slug> [folder or url]` | Set or refresh the branding from your files, your website, or the reference look |
 
 ## How autopilot works
-- **Ticks:** a macOS launchd job runs a headless Claude Code tick every 3 hours (`claude -p "/shadowcast:autopilot <slug>" --model claude-opus-5-5`) with a fixed tool allowlist. Each tick does the most useful next step: research, script, voice, build, audit, render, package or schedule. It keeps 2 episodes booked ahead.
+- **Ticks:** a scheduled job (launchd on macOS, Task Scheduler on Windows) runs a headless Claude Code tick every 3 hours (`claude -p "/shadowcast:autopilot <slug>" --model claude-opus-5-5`) with a fixed tool allowlist. Each tick does the most useful next step: research, script, voice, build, audit, render, package or schedule. It keeps 2 episodes booked ahead.
 - **Script approval:**
   - `optional` (default): you get a notification when a script is ready. If you don't object within 12 hours it continues.
   - Channels about **real people** always wait for `/shadowcast:approve` (defamation risk). So does the first episode of every channel.
-- **Notifications:** macOS notifications, plus `~/Shadowcast/<slug>/inbox.md`. The log is in `autopilot.log`.
+- **Notifications:** desktop notifications, plus `~/Shadowcast/<slug>/inbox.md`. The log is in `autopilot.log`.
 - **Safety:** nothing is published instantly. Uploads go up **private with a scheduled publish time**, and re-runs never double-post.
-- **Awake:** the Mac must be awake for ticks to run (System Settings → Energy → prevent sleep when plugged in).
+- **Awake:** the computer must be awake for ticks to run.
+  - macOS: System Settings → Energy → prevent sleep when plugged in.
+  - Windows: Settings → Power → Sleep: Never when plugged in.
 
 ## Where things live
 ```

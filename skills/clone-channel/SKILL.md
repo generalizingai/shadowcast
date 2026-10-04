@@ -52,7 +52,7 @@ Run the episode skill for `<slug>`, using the top topic from STYLE.md.
 **[user]** Offer to turn on autopilot: `python3 "$T/autopilot/install.py" <slug> --every-hours 3`. Explain:
 - it keeps `episodes_ahead` episodes (default 2) booked;
 - it notifies them when a script needs review;
-- the Mac needs to be awake.
+- the computer needs to be awake.
 
 ## Finish
 Summarise:

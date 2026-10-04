@@ -9,10 +9,10 @@ argument-hint: <channel slug> | install <slug> [hours] | remove <slug> | status 
 `T="${CLAUDE_PLUGIN_ROOT}/tools"`
 
 ## Install / remove / status (interactive)
-- Install: `python3 "$T/autopilot/install.py" <slug> --every-hours 3`. This creates a launchd job that runs `tools/autopilot/run.sh <slug>`. That script calls `claude -p "/shadowcast:autopilot <slug>" --model claude-opus-5-5` with a fixed tool allowlist, a lock, and a log at `<workspace>/<slug>/autopilot.log`.
+- Install: `python3 "$T/autopilot/install.py" <slug> --every-hours 3`. This creates a launchd agent on macOS, or a Task Scheduler task on Windows, that runs `tools/autopilot/run.py <slug>`. That script calls `claude -p "/shadowcast:autopilot <slug>" --model claude-opus-5-5` with a fixed tool allowlist, a lock, and a log at `<workspace>/<slug>/autopilot.log`.
 - `--remove` and `--status` do what they say.
 - Tell the user what this means:
-  - The Mac must be on and awake (suggest Energy settings: prevent sleep while plugged in).
+  - The computer must be on and awake. On macOS: System Settings → Energy → prevent sleep when plugged in. On Windows: Settings → Power → Sleep: Never (when plugged in).
   - Each tick uses their Claude subscription.
   - Scripts for real-people channels always wait for `/shadowcast:approve`.
   - Notifications and `<workspace>/<slug>/inbox.md` say when something needs them.

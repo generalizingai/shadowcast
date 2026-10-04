@@ -12,7 +12,7 @@ os.makedirs(brand, exist_ok=True)
 tmp = tempfile.mkdtemp()
 for comp, out in (("BrandWordmark", "wordmark.png"), ("BrandMono", "mono.png")):
     p = os.path.join(tmp, out)
-    r = subprocess.run(["npx", "remotion", "still", "src/index.ts", comp, p, f"--public-dir={tmp}", "--image-format=png", "--log=error"],
+    r = subprocess.run(["npx.cmd" if os.name == "nt" else "npx", "remotion", "still", "src/index.ts", comp, p, f"--public-dir={tmp}", "--image-format=png", "--log=error"],
                        cwd=studio, capture_output=True, text=True)
     if r.returncode != 0:
         sys.exit(f"render {comp} failed: {r.stderr[-600:]}")

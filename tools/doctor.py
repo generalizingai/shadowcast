@@ -19,25 +19,39 @@ def ver(cmd):
         return ""
 
 
-add("macOS", sys.platform == "darwin", "shadowcast's cut-out tool and scheduler are macOS-only for now")
+MAC, WIN = sys.platform == "darwin", os.name == "nt"
+PY = "python" if WIN else "python3"
+HERE = os.path.dirname(os.path.abspath(__file__))
+inst = (lambda mac, win: win if WIN else mac)
+add(f"operating system ({'macOS' if MAC else 'Windows' if WIN else sys.platform})", MAC or WIN,
+    "macOS and Windows 10/11 are supported; Linux mostly works but is untested (cut-outs via rembg, schedule autopilot with cron)", required=False)
 node = ver(["node", "--version"])
-add(f"Node.js >= 18 ({node or 'missing'})", node and int(node.lstrip("v").split(".")[0]) >= 18, "brew install node")
-for tool, fix in (("ffmpeg", "brew install ffmpeg"), ("yt-dlp", "brew install yt-dlp"), ("claude", "npm install -g @anthropic-ai/claude-code")):
-    add(tool, shutil.which(tool), fix)
-for mod, pkg in (("PIL", "pillow"), ("requests", "requests"), ("googleapiclient", "google-api-python-client"), ("google_auth_oauthlib", "google-auth-oauthlib")):
+add(f"Node.js >= 18 ({node or 'missing'})", node and int(node.lstrip("v").split(".")[0]) >= 18, inst("brew install node", "winget install OpenJS.NodeJS.LTS"))
+for tool, mac, win in (("ffmpeg", "brew install ffmpeg", "winget install Gyan.FFmpeg"), ("yt-dlp", "brew install yt-dlp", "winget install yt-dlp.yt-dlp"),
+                       ("claude", "npm install -g @anthropic-ai/claude-code", "npm install -g @anthropic-ai/claude-code")):
+    add(tool, shutil.which(tool), inst(mac, win))
+mods = [("PIL", "pillow"), ("requests", "requests"), ("numpy", "numpy"), ("googleapiclient", "google-api-python-client"), ("google_auth_oauthlib", "google-auth-oauthlib")]
+if WIN:
+    mods.append(("tzdata", "tzdata"))  # Windows has no system time-zone database for zoneinfo
+for mod, pkg in mods:
     try:
         importlib.import_module(mod); ok = True
     except Exception:
         ok = False
-    add(f"python: {pkg}", ok, f"python3 -m pip install --user {pkg}")
-add("cut-out tool (Apple Vision)", os.path.exists(os.path.join(CFG, "bin", "cutout")), f"zsh {os.path.dirname(os.path.abspath(__file__))}/build_cutout.sh")
+    add(f"python: {pkg}", ok, f"{PY} -m pip install --user {pkg}")
+vision = MAC and os.path.exists(os.path.join(CFG, "bin", "cutout"))
+try:
+    importlib.import_module("rembg"); rembg = True
+except Exception:
+    rembg = False
+add(f"photo cut-out tool ({'Apple Vision' if vision else 'rembg' if rembg else 'missing'})", vision or rembg,
+    f"zsh {HERE}/build_cutout.sh   (Apple Vision, best on macOS 14+)" if MAC else f'{PY} -m pip install --user "rembg[cpu]"   (downloads a ~170 MB model on first use)')
 add("Remotion installed", os.path.isdir(os.path.join(HOME, ".deps", "node_modules", "remotion")), "created automatically by the first new_channel.py (needs ~300 MB)", required=False)
 for k, req, why in (("elevenlabs_api_key", True, "voice-over"), ("gemini_api_key", True, "watching reference videos + image generation"),
                     ("openai_api_key", False, "optional image provider"), ("socialbunny_api_key", False, "optional Facebook/Instagram")):
-    add(f"key: {k} ({why})", secret(k, required=False), f"run in your terminal: python3 {os.path.dirname(os.path.abspath(__file__))}/keys.py set {k}", required=req)
+    add(f"key: {k} ({why})", secret(k, required=False), f"run in your own terminal: {PY} \"{HERE}/keys.py\" set {k}", required=req)
 add("YouTube OAuth client", os.path.exists(os.path.join(CFG, "client_secret.json")), f"create a Desktop OAuth client in Google Cloud and save it as {CFG}/client_secret.json (README step 3)")
-st = os.statvfs(os.path.expanduser("~"))
-free = st.f_bavail * st.f_frsize / 1e9
+free = shutil.disk_usage(os.path.expanduser("~")).free / 1e9
 add(f"disk free {free:.1f} GB (need 8+)", free >= 8, "free disk space: a long render needs ~3 GB of temp space, each finished episode ~0.5-1 GB")
 
 if "--json" in sys.argv:

@@ -48,11 +48,11 @@ Follow the episode skill (`${CLAUDE_PLUGIN_ROOT}/skills/episode/SKILL.md` plus i
   - 8-12 shots. Use real licensed photos (commons.py + cutout) where the topic has people; otherwise use kit graphics.
   - **One Short only** (`short1.tsx`, from the strongest section) and **one thumbnail** (`ThumbA`).
 - **Audit:** run the layout audit fully. Don't skip it, even in a demo.
-- **Render:** `zsh "$T/render_episode.sh" demo-<handle> DM01`. It takes about 3-6 minutes.
+- **Render:** `python3 "$T/render.py" episode demo-<handle> DM01`. It takes about 3-6 minutes.
 - **Skip** packaging, scheduling and autopilot.
 
 ## 4. Show the result
-- Run `open "<episode dir>/out"` and send the user `long.mp4`, `short1.mp4` and `thumb_A.jpg`.
+- Open the output folder (`open "<episode dir>/out"` on macOS, `explorer "<episode dir>\out"` on Windows) and send the user `long.mp4`, `short1.mp4` and `thumb_A.jpg`.
 - Show 4 frames from the long video.
 - Say what to tweak: voice, colours, pacing, topic.
 - Say that `/shadowcast:clone-channel <url>` sets up the real channel. The demo channel folder can be reused or deleted.

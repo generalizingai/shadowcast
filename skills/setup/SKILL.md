@@ -5,13 +5,18 @@ description: One-time shadowcast setup check. Verifies tools, API keys, the YouT
 
 # shadowcast setup
 
+**Windows note:** Claude Code on Windows runs commands in Git Bash. If `python3` isn't found, use `python` (or `py`) for every `python3` command in Shadowcast's skills. Paths work with forward slashes.
+
 `T="${CLAUDE_PLUGIN_ROOT}/tools"`
 
 1. Run `python3 "$T/doctor.py"` and show the user the result.
 2. Fix what you safely can, one at a time, and say what you're doing:
    - Missing python packages: `python3 -m pip install --user <pkg>`.
-   - Cut-out tool: `zsh "$T/build_cutout.sh"` (needs Xcode command line tools; if `swiftc` is missing tell the user to run `xcode-select --install`).
-   - ffmpeg / yt-dlp / node: give the `brew install` line; install only if the user agrees.
+   - Cut-out tool:
+     - macOS: `zsh "$T/build_cutout.sh"`. It needs the Xcode command line tools; if `swiftc` is missing, tell the user to run `xcode-select --install`.
+     - Windows: `python -m pip install --user "rembg[cpu]"`.
+   - Windows also needs `python -m pip install --user tzdata`.
+   - ffmpeg / yt-dlp / node: give the install line from doctor (`brew` on macOS, `winget` on Windows). Install only if the user agrees.
 3. Things only the user can do (explain each in plain steps, then wait):
    - **API keys.** Required: ElevenLabs (voice-over) and Gemini (video analysis and images). Optional: OpenAI and SocialBunny.
      - The user runs `python3 "$T/keys.py" set <name>` in their own terminal. Input is hidden and saved to `~/.config/shadowcast/keys.json` with mode 600.

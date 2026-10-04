@@ -61,7 +61,7 @@ After each stage, record it with `python3 "$T/ep.py" set <slug> <ID> <status>` s
 1. **Photos.** Start fetching people and backgrounds early. For each item, follow the RULES "Assets" section:
    - Search: `python3 "$T/commons.py" search "<query>"`.
    - Fetch: `python3 "$T/commons.py" fetch "<dir>/assets/web" p_<name> "File:<title>"`.
-   - Cut out: `~/.config/shadowcast/bin/cutout "<dir>/assets/web/p_<name>.jpg" "<dir>/assets/cut/<name>.png"`.
+   - Cut out: `python3 "$T/cutout.py" "<dir>/assets/web/p_<name>.jpg" "<dir>/assets/cut/<name>.png"`.
    - **Look at every cut-out.**
    - Run several fetches in a background agent if it's slow. Build with stand-ins meanwhile.
 2. **Long video shots.** Write `src/shots.tsx`, splitting into `shots1.tsx`/`shots2.tsx` past ~40 shots.
@@ -84,7 +84,7 @@ After each stage, record it with `python3 "$T/ep.py" set <slug> <ID> <status>` s
 
 ## 6. audited → rendered
 1. Check the disk with `df -h ~`. You need about 3 GB free.
-2. Run `zsh "$T/render_episode.sh" <slug> <ID>`. It writes `out/long.mp4`, `short1.mp4`, `short2.mp4` and `thumb_A/B/C.jpg`. A 10-minute video takes about 10-25 minutes.
+2. Run `python3 "$T/render.py" episode <slug> <ID>`. It writes `out/long.mp4`, `short1.mp4`, `short2.mp4` and `thumb_A/B/C.jpg`. A 10-minute video takes about 10-25 minutes.
 3. Verify: `ffprobe` the durations, extract and view about 6 frames from the long video and 3 per Short (`ffmpeg -ss <t> -i <f> -frames:v 1 <scratch>.jpg`), and view the thumbnails.
 4. Set `rendered`.
 

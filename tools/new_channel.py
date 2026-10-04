@@ -22,7 +22,7 @@ def deps():
         os.makedirs(d, exist_ok=True)
         shutil.copy(os.path.join(TEMPLATE, "package.json"), d)
         print("installing Remotion (one time, ~300 MB)...")
-        subprocess.run(["npm", "install", "--no-audit", "--no-fund", "--loglevel=error"], cwd=d, check=True)
+        subprocess.run(["npm.cmd" if os.name == "nt" else "npm", "install", "--no-audit", "--no-fund", "--loglevel=error"], cwd=d, check=True)
     return os.path.join(d, "node_modules")
 
 
@@ -93,7 +93,11 @@ def create(a):
     idx = os.path.join(st, "src/episodes/index.ts")
     s = open(idx).read().replace('import demo from "./_demo";\n', "").replace("EPISODES: EpisodeEntry[] = [demo];", "EPISODES: EpisodeEntry[] = [\n];")
     open(idx, "w").write(s)
-    os.symlink(deps(), os.path.join(st, "node_modules"))
+    link = os.path.join(st, "node_modules")
+    if os.name == "nt":  # a directory junction needs no admin rights (symlinks do on Windows)
+        subprocess.run(["cmd", "/c", "mklink", "/J", link, deps()], check=True, capture_output=True)
+    else:
+        os.symlink(deps(), link)
     c = json.load(open(os.path.join(PLUGIN, "templates", "channel.json")))
     c.update({"slug": a.slug, "name": a.name, "code": a.code, "created": dt.date.today().isoformat()})
     c["source"]["url"] = a.source or ""
