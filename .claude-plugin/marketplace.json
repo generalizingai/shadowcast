@@ -1,0 +1,12 @@
+{
+  "name": "channel-forge",
+  "description": "Channel Forge: clone a YouTube channel's format into your own original, automated channel.",
+  "owner": { "name": "Hamza Shergill" },
+  "plugins": [
+    {
+      "name": "channel-forge",
+      "source": "./",
+      "description": "Paste a YouTube channel link and get your own original channel in that format, produced and scheduled on autopilot."
+    }
+  ]
+}
