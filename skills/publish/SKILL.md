@@ -1,12 +1,12 @@
 ---
 name: publish
-description: Schedule a packaged channel-forge episode on YouTube (long video plus 2 Shorts, with thumbnail), and optionally on Facebook and Instagram through SocialBunny, using the channel's release calendar. Also YouTube auth and channel branding. Use for "schedule/publish episode X", "connect YouTube" or "set the banner".
+description: Schedule a packaged shadowcast episode on YouTube (long video plus 2 Shorts, with thumbnail), and optionally on Facebook and Instagram through SocialBunny, using the channel's release calendar. Also YouTube auth and channel branding. Use for "schedule/publish episode X", "connect YouTube" or "set the banner".
 argument-hint: <channel slug> <episode ID> | auth <slug> | brand <slug>
 ---
 
 # Publish
 
-`T="${CLAUDE_PLUGIN_ROOT}/tools"`, `P="$T/publish/publish.py"`, `W="${FORGE_HOME:-$HOME/ChannelForge}/<slug>"`.
+`T="${CLAUDE_PLUGIN_ROOT}/tools"`, `P="$T/publish/publish.py"`, `W="${SHADOWCAST_HOME:-$HOME/Shadowcast}/<slug>"`.
 Nothing is ever published immediately:
 - YouTube uploads are **private with a publishAt time**, and YouTube makes them public on schedule.
 - SocialBunny posts get a future `scheduledAt`.

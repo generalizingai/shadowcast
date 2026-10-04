@@ -3,10 +3,10 @@ Writes audio/vo.mp3, audio/VO.txt, audio/words.json [{w,s,e}], audio/sections.js
 
   tts.py <episode dir> [--voice ID] [--model eleven_v4] [--only N]
 Voice/model default to channel.json ("voice": {"id", "model", "respell": [["7-Eleven","Seven-Eleven"]]}) two levels up.
-Key: elevenlabs_api_key (see forge.py)."""
+Key: elevenlabs_api_key (see common.py)."""
 import argparse, base64, json, os, re, subprocess, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from forge import secret
+from common import secret
 
 ap = argparse.ArgumentParser(); ap.add_argument("episode"); ap.add_argument("--voice"); ap.add_argument("--model"); ap.add_argument("--only", type=int)
 ARGS = ap.parse_args()

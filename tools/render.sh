@@ -4,7 +4,7 @@
 # Long videos default to concurrency 4; pass 2 for Shorts (they embed video and can eat several GB of swap).
 set -e
 STUDIO=$1; COMP=$2; EP=$3; OUT=$4; CONC=${5:-4}
-free=$(df -g "$EP" | tail -1 | awk '{print $4}'); [ "$free" -lt ${FORGE_MIN_FREE_GB:-3} ] && { echo "only ${free} GB free; need ~3 GB to render" >&2; exit 1; }
+free=$(df -g "$EP" | tail -1 | awk '{print $4}'); [ "$free" -lt ${SHADOWCAST_MIN_FREE_GB:-3} ] && { echo "only ${free} GB free; need ~3 GB to render" >&2; exit 1; }
 RAW="${OUT%.mp4}.raw.mp4"
 (cd "$STUDIO" && npx remotion render src/index.ts "$COMP" "$RAW" --public-dir="$EP" --codec=h264 --crf=20 --concurrency=$CONC --log=error) 2>&1 | grep -v "network requests" || true
 [ -f "$RAW" ] || { echo "render failed" >&2; exit 1; }

@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Check everything channel-forge needs and print the fix for anything missing.  doctor.py [--json]"""
+"""Check everything shadowcast needs and print the fix for anything missing.  doctor.py [--json]"""
 import importlib, json, os, shutil, subprocess, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from forge import CFG, HOME, secret  # noqa: E402
+from common import CFG, HOME, secret  # noqa: E402
 
 checks = []
 
@@ -19,7 +19,7 @@ def ver(cmd):
         return ""
 
 
-add("macOS", sys.platform == "darwin", "channel-forge's cut-out tool and scheduler are macOS-only for now")
+add("macOS", sys.platform == "darwin", "shadowcast's cut-out tool and scheduler are macOS-only for now")
 node = ver(["node", "--version"])
 add(f"Node.js >= 18 ({node or 'missing'})", node and int(node.lstrip("v").split(".")[0]) >= 18, "brew install node")
 for tool, fix in (("ffmpeg", "brew install ffmpeg"), ("yt-dlp", "brew install yt-dlp"), ("claude", "npm install -g @anthropic-ai/claude-code")):

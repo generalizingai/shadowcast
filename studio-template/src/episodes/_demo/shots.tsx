@@ -8,7 +8,7 @@ import { L } from "../../kit/theme";
 // Long-video shot list. One entry per beat: `at` = first words of the beat, `marks` = later words that trigger reveals.
 // Split into shots1.tsx / shots2.tsx when long; tools/audit_layout.py reads every shots*.tsx in file order.
 export const SHOTS: ShotDef[] = [
-  { at: "", sfx: "thud", el: () => <Glam><TitleCard kicker="CHANNEL FORGE" title="Demo Episode" sub="every graphic, word-synced" /><Flash /></Glam> },
+  { at: "", sfx: "thud", el: () => <Glam><TitleCard kicker="SHADOWCAST" title="Demo Episode" sub="every graphic, word-synced" /><Flash /></Glam> },
   { at: "Number three", sfx: "click", marks: ["Watch"], el: ({ m }) => <Glam photo="web/b_demo.jpg"><Countdown n={3} name="THE CLIMB" role="chart demo" cut="cut/demo.png" m={m} /></Glam> },
   { at: "gold chart", marks: ["one", "four."], el: ({ m }) => (
     <Glam dim={0.1}><Climb title="DEMO · GROWTH" max={5} pts={[{ d: "START", v: 1, label: "1" }, { d: "END", v: 4, label: "4" }]} ats={[m[0], m[1]]} ticks={[{ v: 2, label: "2" }, { v: 4, label: "4" }]} /></Glam>) },

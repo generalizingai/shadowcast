@@ -1,9 +1,9 @@
 """YouTube side of the publisher (YouTube Data API v3). One OAuth client for everything, one token per channel:
-  ~/.config/channel-forge/client_secret.json      Desktop-type OAuth client from Google Cloud (see README)
-  ~/.config/channel-forge/youtube/<slug>.json     token, created by `publish.py auth <slug>`"""
+  ~/.config/shadowcast/client_secret.json      Desktop-type OAuth client from Google Cloud (see README)
+  ~/.config/shadowcast/youtube/<slug>.json     token, created by `publish.py auth <slug>`"""
 import os, sys, time
 
-CFG = os.path.expanduser("~/.config/channel-forge")
+CFG = os.path.expanduser("~/.config/shadowcast")
 CLIENT = os.path.join(CFG, "client_secret.json")
 SLUG = None  # set by publish.py before any call
 TOKEN = lambda: os.path.join(CFG, "youtube", f"{SLUG}.json")

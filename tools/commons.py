@@ -7,7 +7,7 @@
 import json, os, re, sys, urllib.parse, urllib.request
 
 API = "https://en.wikipedia.org/w/api.php"  # commons.wikimedia.org is unreachable here; enwiki serves Commons files too
-UA = {"User-Agent": "ChannelForge/1.0 (contact via commons talk page)"}
+UA = {"User-Agent": "Shadowcast/1.0 (contact via commons talk page)"}
 
 def get(url, timeout=60):
     import time

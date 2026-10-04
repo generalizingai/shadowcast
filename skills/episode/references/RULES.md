@@ -45,7 +45,7 @@ Fix every issue, re-run the audit, and look again. Do not render until a full sh
 ## Assets
 - Photos come from `commons.py search` / `fetch` (Wikimedia via the en.wikipedia API). Keys and naming:
   - `b_<name>.jpg` for backgrounds.
-  - `p_<name>.jpg` for people. Then cut out with `~/.config/channel-forge/bin/cutout web/p_<name>.jpg cut/<name>.png`.
+  - `p_<name>.jpg` for people. Then cut out with `~/.config/shadowcast/bin/cutout web/p_<name>.jpg cut/<name>.png`.
 - Every fetch appends to `assets/web/CREDITS.md`. Credits are computed from what the shots actually reference, so reference assets by literal path strings (`"web/b_x.jpg"`, `"cut/x.png"`).
 - Commons rate-limits with 429s. Start building shots with stand-ins (`Glam`, silhouettes) while photos download; never sit idle.
 - Look at every cut-out before using it. Reject bad masks, other people's limbs, logos, and watermarks.

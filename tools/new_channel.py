@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Create a channel workspace: <FORGE_HOME>/<slug>/ with channel.json, brand/, episodes/, and a Remotion studio.
+"""Create a channel workspace: <SHADOWCAST_HOME>/<slug>/ with channel.json, brand/, episodes/, and a Remotion studio.
 
   new_channel.py <slug> --name "Channel Name" --code LF [--source <youtube url>]
   new_channel.py brand <slug>      regenerate studio/src/brand/brand.ts from channel.json "brand" and copy logos into every episode
 
-The studio shares one node_modules install (<FORGE_HOME>/.deps) across channels to save disk.
+The studio shares one node_modules install (<SHADOWCAST_HOME>/.deps) across channels to save disk.
 """
 import argparse, datetime as dt, json, os, re, shutil, subprocess, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from forge import HOME, PLUGIN  # noqa: E402
+from common import HOME, PLUGIN  # noqa: E402
 
 TEMPLATE = os.path.join(PLUGIN, "studio-template")
 SLUG = re.compile(r"^[a-z0-9][a-z0-9-]{1,40}$")

@@ -7,7 +7,7 @@ import datetime as dt, json, os, sys
 from zoneinfo import ZoneInfo
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from forge import channel, channel_dir  # noqa: E402
+from common import channel, channel_dir  # noqa: E402
 
 WD = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 

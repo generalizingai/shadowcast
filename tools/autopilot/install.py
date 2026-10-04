@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Install / remove the macOS launchd job that runs autopilot for a channel.
 
-  install.py <slug> [--every-hours 3]     load ~/Library/LaunchAgents/com.channelforge.<slug>.plist
+  install.py <slug> [--every-hours 3]     load ~/Library/LaunchAgents/com.shadowcast.<slug>.plist
   install.py <slug> --remove
   install.py <slug> --status
 The Mac must be awake (and logged in) for ticks to run; missed ticks run at the next wake.
@@ -17,7 +17,7 @@ def main():
     a = ap.parse_args()
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{1,40}", a.slug):
         sys.exit("bad slug")
-    label = f"com.channelforge.{a.slug}"
+    label = f"com.shadowcast.{a.slug}"
     path = os.path.expanduser(f"~/Library/LaunchAgents/{label}.plist")
     uid = os.getuid()
     if a.status:
@@ -30,9 +30,9 @@ def main():
             os.remove(path)
         print("removed")
         return
-    home = os.path.expanduser(os.environ.get("FORGE_HOME", "~/ChannelForge"))
+    home = os.path.expanduser(os.environ.get("SHADOWCAST_HOME", "~/Shadowcast"))
     plist = {"Label": label, "ProgramArguments": ["/bin/zsh", RUN, a.slug], "StartInterval": int(a.every_hours * 3600), "RunAtLoad": True,
-             "EnvironmentVariables": {"FORGE_HOME": home, "HOME": os.path.expanduser("~")},
+             "EnvironmentVariables": {"SHADOWCAST_HOME": home, "HOME": os.path.expanduser("~")},
              "StandardOutPath": os.path.join(home, a.slug, "launchd.out"), "StandardErrorPath": os.path.join(home, a.slug, "launchd.err")}
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "wb") as fh:

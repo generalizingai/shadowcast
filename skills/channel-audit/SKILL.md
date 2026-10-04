@@ -6,7 +6,7 @@ argument-hint: <youtube channel url or @handle> <our channel slug>
 
 # Channel audit → STYLE.md
 
-`T="${CLAUDE_PLUGIN_ROOT}/tools"`. Audit folder `A`: `${FORGE_HOME:-~/ChannelForge}/<slug>/audit` if the channel workspace exists; otherwise `${FORGE_HOME:-~/ChannelForge}/_audits/<reference handle>`. The clone-channel flow moves it into the workspace once the channel exists. Steps 5-6 need the workspace.
+`T="${CLAUDE_PLUGIN_ROOT}/tools"`. Audit folder `A`: `${SHADOWCAST_HOME:-~/Shadowcast}/<slug>/audit` if the channel workspace exists; otherwise `${SHADOWCAST_HOME:-~/Shadowcast}/_audits/<reference handle>`. The clone-channel flow moves it into the workspace once the channel exists. Steps 5-6 need the workspace.
 
 We learn a channel's **format** (structure, pacing, visual grammar, packaging) so we can make **original** videos in that format. We never copy its name, logo, colours-as-identity, scripts, thumbnails, footage or exact titles.
 

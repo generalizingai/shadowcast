@@ -7,7 +7,7 @@
 import getpass, json, os, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from forge import CFG  # noqa: E402
+from common import CFG  # noqa: E402
 
 NAMES = ("elevenlabs_api_key", "gemini_api_key", "openai_api_key", "socialbunny_api_key")
 P = os.path.join(CFG, "keys.json")

@@ -15,7 +15,7 @@ unless the user objected; real_people channels always wait for /approve (defamat
 import datetime as dt, json, os, re, shutil, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from forge import PLUGIN, channel, channel_dir  # noqa: E402
+from common import PLUGIN, channel, channel_dir  # noqa: E402
 
 ORDER = ["planned", "researched", "scripted", "awaiting_approval", "approved", "voiced", "built", "audited", "rendered", "packaged", "scheduled"]
 NOW = lambda: dt.datetime.now(dt.timezone.utc).replace(microsecond=0).isoformat()
@@ -134,6 +134,8 @@ def next_action(slug):
                 return {"action": "rewrite_script", "id": m["id"], "dir": m["_dir"], "feedback": m["feedback"]}
             continue  # waiting: work on something else meanwhile
         return {"action": "continue_episode", "id": m["id"], "dir": m["_dir"], "status": m["status"]}
+    if first and open_eps:  # don't start more work until the user has seen and approved the channel's first episode
+        return {"action": "idle", "waiting": [m["id"] for m in open_eps], "reason": "first episode awaiting approval"}
     import publish.slots as slots  # noqa: E402
     booked = slots.upcoming(slug)
     if len(booked) + len(open_eps) < int(c.get("episodes_ahead", 2)):

@@ -8,7 +8,7 @@ asked for it; use real licensed photos for people (commons.py + cutout). Keys: g
 """
 import argparse, base64, mimetypes, os, sys, requests
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from forge import secret
+from common import secret
 
 
 def gemini(prompt, out, aspect, size, refs, model):
@@ -42,7 +42,7 @@ def openai(prompt, out, aspect, refs, model):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("prompt"); ap.add_argument("out"); ap.add_argument("--aspect", default="16:9"); ap.add_argument("--size", default="2K")
-    ap.add_argument("--ref", action="append", default=[]); ap.add_argument("--provider", default=os.environ.get("FORGE_IMAGE_PROVIDER", "gemini"))
+    ap.add_argument("--ref", action="append", default=[]); ap.add_argument("--provider", default=os.environ.get("SHADOWCAST_IMAGE_PROVIDER", "gemini"))
     ap.add_argument("--model")
     a = ap.parse_args()
     if a.provider == "openai":

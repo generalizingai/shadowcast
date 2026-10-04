@@ -1,8 +1,8 @@
 {
-  "name": "channel-forge",
+  "name": "shadowcast",
   "version": "0.1.0",
   "description": "Paste a YouTube channel link and get your own original channel in that format: audit, style bible, brand kit, researched scripts, voice-over, word-synced motion graphics, native Shorts, thumbnails, and scheduled uploads on autopilot.",
-  "author": { "name": "Hamza Shergill" },
+  "author": { "name": "Generalizing AI" },
   "keywords": ["youtube", "automation", "remotion", "video", "shorts", "faceless", "elevenlabs"],
   "license": "MIT"
 }

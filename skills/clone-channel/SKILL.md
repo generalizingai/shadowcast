@@ -1,12 +1,12 @@
 ---
 name: clone-channel
-description: The full channel-forge flow. Give it a YouTube channel link and it audits the channel, learns its format, creates an original channel identity (name, logo, banner, voice), connects YouTube, produces and schedules the first episode with 2 Shorts and thumbnails, then turns on autopilot for hands-free videos on a schedule. Use when someone pastes a channel link and wants their own channel "like this one".
+description: The full shadowcast flow. Give it a YouTube channel link and it audits the channel, learns its format, creates an original channel identity (name, logo, banner, voice), connects YouTube, produces and schedules the first episode with 2 Shorts and thumbnails, then turns on autopilot for hands-free videos on a schedule. Use when someone pastes a channel link and wants their own channel "like this one".
 argument-hint: <youtube channel url or @handle>
 ---
 
 # Clone a channel's format into a new, original channel
 
-`T="${CLAUDE_PLUGIN_ROOT}/tools"`, `H="${FORGE_HOME:-$HOME/ChannelForge}"`.
+`T="${CLAUDE_PLUGIN_ROOT}/tools"`, `H="${SHADOWCAST_HOME:-$HOME/Shadowcast}"`.
 
 We copy what makes a channel work: format, pacing, visual grammar, look (palette, font feel, thumbnail style), packaging and cadence. The **identity** is the user's: their brand files or website if they gave them, otherwise an original name, logo, avatar and banner styled like the reference. Never copy the reference channel's name, logo, avatar or banner (YouTube terminates impersonating channels), and never reuse its videos, thumbnails or scripts. Say this once to the user.
 
@@ -61,4 +61,4 @@ Summarise:
 - the release calendar
 - autopilot status
 - where everything lives (`H/<slug>/`)
-- the commands: `/channel-forge:episode <slug>`, `/channel-forge:approve <slug> <ID>`, `/channel-forge:autopilot status <slug>`
+- the commands: `/shadowcast:episode <slug>`, `/shadowcast:approve <slug> <ID>`, `/shadowcast:autopilot status <slug>`

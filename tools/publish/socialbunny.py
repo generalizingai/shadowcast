@@ -1,7 +1,7 @@
 """Facebook + Instagram through SocialBunny's REST scheduler (optional; https://socialbunny-api.onrender.com).
 
 channel.json "social": {"socialbunny": {"facebook": "<page handle>", "instagram": "<ig handle>", "fb_reels": true}}
-API key (sbk_...): plugin setting socialbunny_api_key (or FORGE_SOCIALBUNNY_API_KEY / ~/.config/channel-forge/keys.json).
+API key (sbk_...): plugin setting socialbunny_api_key (or SHADOWCAST_SOCIALBUNNY_API_KEY / ~/.config/shadowcast/keys.json).
   1. POST /media/upload-url {filename, contentType} -> signed PUT url + public url
   2. POST /scheduler/posts {caption, mediaUrls, scheduledAt (UTC Z), targets:[{connectionId, format:"video", options}]}
 SocialBunny publishes due posts from its own cron, so posts can land a few minutes after their slot.
@@ -10,7 +10,7 @@ import json, os, sys, time
 import requests
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from forge import channel, secret  # noqa: E402
+from common import channel, secret  # noqa: E402
 
 API = os.environ.get("SOCIALBUNNY_API", "https://socialbunny-api.onrender.com")
 SLUG = None  # set by publish.py

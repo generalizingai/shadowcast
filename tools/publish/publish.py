@@ -22,7 +22,7 @@ import argparse, datetime as dt, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import slots  # noqa: E402
-from forge import channel  # noqa: E402
+from common import channel  # noqa: E402
 
 # platform group -> SocialBunny targets per role
 META = {"long": ["facebook"], "short1": ["facebook", "instagram"], "short2": ["facebook", "instagram"]}

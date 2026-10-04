@@ -3,11 +3,11 @@
 when downloads and captions are blocked. Writes markdown to stdout or --out.
 
   gemini_watch.py <youtube url> [--out file.md] [--model gemini-pro-latest]
-Key: gemini_api_key (see forge.py).
+Key: gemini_api_key (see common.py).
 """
 import argparse, json, sys, os, requests
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from forge import secret
+from common import secret
 
 PROMPT = """You are a YouTube format analyst. Watch this video and describe its FORMAT so another creator can make
 original videos in the same style (never copy its content, script, name or branding). Be concrete and measurable:

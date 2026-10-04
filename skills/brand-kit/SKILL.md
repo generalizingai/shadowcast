@@ -6,7 +6,7 @@ argument-hint: <channel slug> [brand folder | website url]
 
 # Brand kit
 
-`T="${CLAUDE_PLUGIN_ROOT}/tools"`. Workspace `W=${FORGE_HOME:-~/ChannelForge}/<slug>`. Read `W/STYLE.md` and `W/channel.json` first.
+`T="${CLAUDE_PLUGIN_ROOT}/tools"`. Workspace `W=${SHADOWCAST_HOME:-~/Shadowcast}/<slug>`. Read `W/STYLE.md` and `W/channel.json` first.
 
 ## 0. Brand source (`channel.json brand.source`)
 Pick exactly one. The user's choice wins, so ask if it's unknown and they're present.
@@ -68,7 +68,7 @@ In own/website mode, use the user's logo files and generate only what's missing.
 
 ## 4. Voice
 - Choose an ElevenLabs voice that matches STYLE.md (gender, age, energy, accent).
-  - List voices: `curl -s https://api.elevenlabs.io/v1/voices -H "xi-api-key: $KEY"`. Get KEY from `python3 -c "import sys;sys.path.insert(0,'$T');from forge import secret;print(secret('elevenlabs_api_key'))"`, and never print it.
+  - List voices: `curl -s https://api.elevenlabs.io/v1/voices -H "xi-api-key: $KEY"`. Get KEY from `python3 -c "import sys;sys.path.insert(0,'$T');from common import secret;print(secret('elevenlabs_api_key'))"`, and never print it.
   - Prefer the user's own cloned voice if they have one.
 - Write `voice.id`, `voice.name` and `voice.model` ("eleven_v4", or "eleven_multilingual_v2" if the account lacks v4).
 

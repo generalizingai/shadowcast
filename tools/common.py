@@ -1,24 +1,24 @@
-"""Shared helpers for channel-forge tools: paths, per-channel config, and secret lookup.
+"""Shared helpers for shadowcast tools: paths, per-channel config, and secret lookup.
 
-Workspace (FORGE_HOME, default ~/ChannelForge):
+Workspace (SHADOWCAST_HOME, default ~/Shadowcast):
   <slug>/channel.json   name, handle, target channel, niche, voice, cadence, approval, platforms
   <slug>/STYLE.md       style bible written from the audit
   <slug>/brand/         logo, monogram, banner, avatar, brand.json
   <slug>/studio/        Remotion project (copied from studio-template)
   <slug>/episodes/<NN-slug>/  FACTSHEET.md SCRIPT.md audio/ assets/ out/ meta.json publish.json
   <slug>/calendar.json  booked release dates
-Secrets: ~/.config/channel-forge/keys.json (written by keys.py, mode 600), or env FORGE_<NAME> / <NAME>.
+Secrets: ~/.config/shadowcast/keys.json (written by keys.py, mode 600), or env SHADOWCAST_<NAME> / <NAME>.
 """
 import json, os, sys
 
-HOME = os.path.expanduser(os.environ.get("FORGE_HOME", "~/ChannelForge"))
-CFG = os.path.expanduser("~/.config/channel-forge")
+HOME = os.path.expanduser(os.environ.get("SHADOWCAST_HOME", "~/Shadowcast"))
+CFG = os.path.expanduser("~/.config/shadowcast")
 PLUGIN = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def secret(name, required=True):
     """name like 'elevenlabs_api_key'."""
-    for k in (f"CLAUDE_PLUGIN_OPTION_{name.upper()}", f"FORGE_{name.upper()}", name.upper()):
+    for k in (f"CLAUDE_PLUGIN_OPTION_{name.upper()}", f"SHADOWCAST_{name.upper()}", name.upper()):
         if os.environ.get(k):
             return os.environ[k].strip()
     p = os.path.join(CFG, "keys.json")

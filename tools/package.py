@@ -15,7 +15,7 @@ episode source references web/<key>.<ext>, or cut/<name>.png (made from web/p_<n
 import html, json, os, re, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from forge import channel, channel_dir  # noqa: E402
+from common import channel, channel_dir  # noqa: E402
 from ep import find  # noqa: E402
 
 LEAD = 0.4

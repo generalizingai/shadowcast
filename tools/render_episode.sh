@@ -3,7 +3,7 @@
 #   render_episode.sh <slug> <ID> [long|shorts|thumbs ...]     (default: all)
 set -e
 SLUG=$1; ID=$2; shift 2; WHAT=${@:-long shorts thumbs}
-HOMEF=${FORGE_HOME:-$HOME/ChannelForge}; ROOT="$HOMEF/$SLUG"; STUDIO="$ROOT/studio"; T=$(dirname "$0")
+HOMEF=${SHADOWCAST_HOME:-$HOME/Shadowcast}; ROOT="$HOMEF/$SLUG"; STUDIO="$ROOT/studio"; T=$(dirname "$0")
 EP=$(python3 -c "import sys;sys.path.insert(0,'$T');from ep import find;print(find('$SLUG','$ID')['_dir'])")
 mkdir -p "$EP/out"
 comps=$(cd "$STUDIO" && npx remotion compositions src/index.ts --public-dir="$EP" --quiet 2>/dev/null | tr ' ' '\n')

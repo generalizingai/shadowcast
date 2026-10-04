@@ -1,6 +1,6 @@
 ---
 name: episode
-description: Produce one complete episode for a channel-forge channel. Covers research, fact sheet, script, approval gate, voice-over, photos, word-synced motion graphics, layout audit, render, two native Shorts, thumbnails and the upload package. It resumes from the episode's saved status. Use for "make the next video", "new episode about X", or to continue an unfinished one.
+description: Produce one complete episode for a shadowcast channel. Covers research, fact sheet, script, approval gate, voice-over, photos, word-synced motion graphics, layout audit, render, two native Shorts, thumbnails and the upload package. It resumes from the episode's saved status. Use for "make the next video", "new episode about X", or to continue an unfinished one.
 argument-hint: <channel slug> [topic or episode ID]
 ---
 
@@ -8,7 +8,7 @@ argument-hint: <channel slug> [topic or episode ID]
 
 ```
 T="${CLAUDE_PLUGIN_ROOT}/tools"
-W="${FORGE_HOME:-$HOME/ChannelForge}/<slug>"
+W="${SHADOWCAST_HOME:-$HOME/Shadowcast}/<slug>"
 ```
 
 Read these before starting:
@@ -44,7 +44,7 @@ After each stage, record it with `python3 "$T/ep.py" set <slug> <ID> <status>` s
    - Length = minutes × wpm words.
 2. **Self-check against FACTSHEET line by line.** Every sentence must be supported; fix or cut anything that isn't.
 3. If `meta.feedback` exists, this is a rewrite: address every point, then clear it with `python3 "$T/ep.py" set <slug> <ID> scripted feedback=`.
-4. **Approval gate.** Set `awaiting_approval`, then run `python3 "$T/notify.py" <slug> "Script ready: <ID>" "<title>. Approve with /channel-forge:approve <slug> <ID>"`. What happens next depends on the session:
+4. **Approval gate.** Set `awaiting_approval`, then run `python3 "$T/notify.py" <slug> "Script ready: <ID>" "<title>. Approve with /shadowcast:approve <slug> <ID>"`. What happens next depends on the session:
    - **Interactive session:** show the user the title, a 5-line summary, the claim count and the path. Ask whether to approve now.
    - **Autopilot:** stop work on this episode. `ep.py next` decides when it may continue: after the approval window in `optional` mode; never automatically when `real_people` is true or mode is `required`.
 5. When approved: set `approved`.
@@ -61,7 +61,7 @@ After each stage, record it with `python3 "$T/ep.py" set <slug> <ID> <status>` s
 1. **Photos.** Start fetching people and backgrounds early. For each item, follow the RULES "Assets" section:
    - Search: `python3 "$T/commons.py" search "<query>"`.
    - Fetch: `python3 "$T/commons.py" fetch "<dir>/assets/web" p_<name> "File:<title>"`.
-   - Cut out: `~/.config/channel-forge/bin/cutout "<dir>/assets/web/p_<name>.jpg" "<dir>/assets/cut/<name>.png"`.
+   - Cut out: `~/.config/shadowcast/bin/cutout "<dir>/assets/web/p_<name>.jpg" "<dir>/assets/cut/<name>.png"`.
    - **Look at every cut-out.**
    - Run several fetches in a background agent if it's slow. Build with stand-ins meanwhile.
 2. **Long video shots.** Write `src/shots.tsx`, splitting into `shots1.tsx`/`shots2.tsx` past ~40 shots.
@@ -99,4 +99,4 @@ After each stage, record it with `python3 "$T/ep.py" set <slug> <ID> <status>` s
 3. Set `packaged`.
 
 ## 8. packaged → scheduled
-Hand off to the publish skill (`/channel-forge:publish <slug> <ID>`), or follow its steps directly.
+Hand off to the publish skill (`/shadowcast:publish <slug> <ID>`), or follow its steps directly.

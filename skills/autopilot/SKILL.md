@@ -1,6 +1,6 @@
 ---
 name: autopilot
-description: One unattended autopilot tick for a channel-forge channel. It does the single most useful next step (continue an episode, auto-approve after the review window, start a new episode, or schedule) and stops. Run by the launchd job via headless Claude Code; also use it to install, remove or check autopilot.
+description: One unattended autopilot tick for a shadowcast channel. It does the single most useful next step (continue an episode, auto-approve after the review window, start a new episode, or schedule) and stops. Run by the launchd job via headless Claude Code; also use it to install, remove or check autopilot.
 argument-hint: <channel slug> | install <slug> [hours] | remove <slug> | status <slug>
 ---
 
@@ -9,12 +9,12 @@ argument-hint: <channel slug> | install <slug> [hours] | remove <slug> | status 
 `T="${CLAUDE_PLUGIN_ROOT}/tools"`
 
 ## Install / remove / status (interactive)
-- Install: `python3 "$T/autopilot/install.py" <slug> --every-hours 3`. This creates a launchd job that runs `tools/autopilot/run.sh <slug>`. That script calls `claude -p "/channel-forge:autopilot <slug>" --model claude-opus-5-5` with a fixed tool allowlist, a lock, and a log at `<workspace>/<slug>/autopilot.log`.
+- Install: `python3 "$T/autopilot/install.py" <slug> --every-hours 3`. This creates a launchd job that runs `tools/autopilot/run.sh <slug>`. That script calls `claude -p "/shadowcast:autopilot <slug>" --model claude-opus-5-5` with a fixed tool allowlist, a lock, and a log at `<workspace>/<slug>/autopilot.log`.
 - `--remove` and `--status` do what they say.
 - Tell the user what this means:
   - The Mac must be on and awake (suggest Energy settings: prevent sleep while plugged in).
   - Each tick uses their Claude subscription.
-  - Scripts for real-people channels always wait for `/channel-forge:approve`.
+  - Scripts for real-people channels always wait for `/shadowcast:approve`.
   - Notifications and `<workspace>/<slug>/inbox.md` say when something needs them.
 
 ## A tick (headless; there is no user to ask)

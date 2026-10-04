@@ -1,6 +1,6 @@
 ---
 name: approve
-description: Approve or reject an episode script that is waiting for review in a channel-forge channel. Use when the user says approve, looks good, ship it, or gives script feedback for an episode.
+description: Approve or reject an episode script that is waiting for review in a shadowcast channel. Use when the user says approve, looks good, ship it, or gives script feedback for an episode.
 argument-hint: <channel slug> <episode ID> [reject: <feedback>]
 ---
 
