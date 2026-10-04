@@ -32,7 +32,7 @@ Shadowcast is a Claude Code plugin, powered by Claude Opus 5.5. The flow:
 
 ## Install
 ```bash
-claude plugin marketplace add <github-owner>/shadowcast
+claude plugin marketplace add generalizingai/shadowcast
 claude plugin install shadowcast@shadowcast
 ```
 Then, in Claude Code:
